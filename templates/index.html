@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Audio Recorder</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Audio Recorder</h1>
+    <form action="/record" method="post">
+        <button type="submit">Start Recording</button>
+    </form>
+
+    <!-- Countdown timer, initially hidden -->
+    <div id="timer" style="display: none;">Countdown: <span id="countdown">15</span> seconds</div>
+
+    {% if recording_finished %}
+    <div id="download-link">
+        <a href="{{ url_for('download_audio') }}" download="recorded_audio.wav">Download Recorded Audio</a>
+    </div>
+    <audio controls>
+        <source src="{{ url_for('serve_audio') }}" type="audio/wav">
+        Your browser does not support the audio element.
+    </audio>
+    {% endif %}
+</body>
+</html>
